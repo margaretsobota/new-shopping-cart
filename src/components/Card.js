@@ -6,10 +6,12 @@ import { Column, Container } from "rbx";
 const Card = ({product}) => {
   const pic_url = process.env.PUBLIC_URL + "/data/product-imgs/";
   //<img src={pic_url + product.id + ".jpg"}/>
+  //<img src={process.env.PUBLIC_URL + "/data/product-imgs/100_1.jpg"}/>
+  
 
   return (
     <Column size="one-quarter">
-      <img src={process.env.PUBLIC_URL + "/data/product-imgs/100_1.jpg"}/>
+      <img src={process.env.PUBLIC_URL + "/data/product-imgs/" + product.sku + ".jpg"}/>
       <h1>
         { product.title }
       </h1>
