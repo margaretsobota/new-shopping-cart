@@ -1,0 +1,16 @@
+#card-title , #price {
+  text-align: center;
+}
+
+.columns #card-column{
+  border-width: .25px;
+  padding: 5px;
+  margin: 5px;
+  margin-top: 20px;
+}
+
+#card-column:hover {
+  border-style: dotted;
+  
+}
+
