@@ -7,7 +7,7 @@ const CardList = ( { products } ) => {
   
 
   return (
-    <Column.Group multiline="true">
+    <Column.Group multiline={true} >
       { products.map(product => 
           <Card key={ product.id } product= { product } />) }
     </Column.Group>
