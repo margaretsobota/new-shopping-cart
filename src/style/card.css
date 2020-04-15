@@ -14,3 +14,16 @@
   
 }
 
+.dropdown {
+  visibility: hidden;
+  text-align: center;
+  margin-left: 25%;
+}
+
+#card-column:hover .dropdown{
+  visibility: visible;
+  
+}
+
+
+

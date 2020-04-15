@@ -1,8 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import "rbx/index.css";
-import { Column, Container, Title } from "rbx";
+import { Column, Container, Title, Dropdown, Button, Icon } from "rbx";
 import "../style/card.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 //import test from "./public/data/product-imgs/101_1.jpg";
+
+const product_sizes = ["S", "M", "L", "XL"];
+
+const Sizes = ({ sizes }) => {
+  return (
+    <Dropdown>
+      <Dropdown.Trigger>
+        <Button>
+          <span>Choose size</span>
+          <Icon size="small">
+            <FontAwesomeIcon icon={faAngleDown} />
+          </Icon>
+        </Button>
+      </Dropdown.Trigger>
+      <Dropdown.Menu>
+        <Dropdown.Content>
+        {sizes.map(size => 
+           <Dropdown.Item> {size} </Dropdown.Item>)}
+        </Dropdown.Content>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 const Card = ({product}) => {
   const price = (product.price).toFixed(2);
@@ -19,6 +44,7 @@ const Card = ({product}) => {
       <Title id="price" size={4}>
         $ { price }
       </Title>
+      <Sizes sizes={ product_sizes }/>
     </Column>
   );
 };
