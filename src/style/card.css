@@ -21,7 +21,8 @@
 .dropdown {
   visibility: hidden;
   text-align: center;
-  margin-left: 25%;
+  margin-left: 32%;
+  margin-bottom: 2px;
 }
 
 #card-column:hover .dropdown{
@@ -38,6 +39,7 @@
   visibility: hidden;
   margin-bottom: 2px;
 }
+
 
 
 

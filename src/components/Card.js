@@ -1,45 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import "rbx/index.css";
-import { Column, Container, Title, Dropdown, Button, Icon } from "rbx";
+import { Column, Container, Title, Button, Icon } from "rbx";
 import "../style/card.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-//import test from "./public/data/product-imgs/101_1.jpg";
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+//fa-info-circle
+
+import Sizes from "./Sizes";
 
 const product_sizes = ["S", "M", "L", "XL"];
 
-const Sizes = ({ sizes }) => {
-  return (
-    <Dropdown>
-      <Dropdown.Trigger>
-        <Button>
-          <span>Choose size</span>
-          <Icon size="small">
-            <FontAwesomeIcon icon={faAngleDown} />
-          </Icon>
-        </Button>
-      </Dropdown.Trigger>
-      <Dropdown.Menu>
-        <Dropdown.Content>
-        {sizes.map(size => 
-           <Dropdown.Item> {size} </Dropdown.Item>)}
-        </Dropdown.Content>
-      </Dropdown.Menu>
-    </Dropdown>
-  );
-};
-
-const Card = ({product}) => {
+const Card = ({ product }) => {
   const price = (product.price).toFixed(2);
 
   var desc = product.description;
   if (desc == "")
     desc = "no description";
 
-  //<img src={pic_url + product.id + ".jpg"}/>
-  //<img src={process.env.PUBLIC_URL + "/data/product-imgs/100_1.jpg"}/>
+  const openShopping = () => {
+    document.getElementById("openModal").style.display="block";
+    //state.setOpen(true);
+    
+    //this.refs["openModal"].style.display="block";
+  }
   
-
   return (
     <Column id="card-column" size="one-fifth">
       <img src={process.env.PUBLIC_URL + "/data/product-imgs/" + product.sku + ".jpg"}/>
@@ -49,10 +33,25 @@ const Card = ({product}) => {
       <Title id="price" size={4}>
         $ { price }
       </Title>
-      <h3 class="desc">
-        { desc }
-      </h3>
-      <Sizes sizes={ product_sizes }/>
+      
+      <Column.Group>
+        <Sizes sizes={ product_sizes }/>
+        
+        <span class="desc">
+          <Icon size="small">
+              <FontAwesomeIcon icon={faInfoCircle} />
+          </Icon>
+            { desc }
+        </span>
+      </Column.Group>
+      
+      <Button fullwidth="true" color="dark"
+        onClick = { () =>  openShopping()} >
+        
+        Add to Cart
+      </Button>
+     
+      
     </Column>
   );
 };

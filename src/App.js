@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import "rbx/index.css";
-import { Container } from "rbx";
+import { Container, Section } from "rbx";
 import CardList from "./components/CardList";
+import ShoppingCart from "./components/ShoppingCart";
+import Sidebar from "react-sidebar";
 
 const App = () => {
   const [data, setData] = useState({});
@@ -16,12 +18,17 @@ const App = () => {
   }, []);
 
   return (
-    // <ul>
-    //   {products.map(product => <li key={product.sku}>{product.title}</li>)}
-    // </ul>
-    <Container>
-      <CardList products = { products }/>
-    </Container>
+    
+    <div>
+        <Container>
+          <CardList products = { products }/>
+        </Container>
+      
+        
+        <ShoppingCart />
+        
+    
+    </div>
     
   );
 };
