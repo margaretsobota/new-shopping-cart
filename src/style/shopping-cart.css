@@ -1,0 +1,61 @@
+.modal-background {
+  margin-left: 52.5%;
+  height: 100%;
+}
+
+.modal-card {
+  margin-right: 25px;
+  margin-left: 25px;
+  color: #e6eef2;
+}
+
+.modal-card-body {
+  background: #1e2021;
+}
+
+.modal-card-head {
+  margin-top: 15px;
+  background: #1e2021;
+  color: #e6eef2;
+  border-bottom: none;
+}
+
+.modal-card-title {
+  color: #e6eef2;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.modal-close {
+  right: 40px;
+  top: 25px;
+}
+
+.section {
+  border-top: 1px solid black;
+  margin-right: 15px;
+}
+
+#shopping-title {
+    color: #e6eef2;
+    font-size: 15pt;
+    font-weight: normal;
+    margin-bottom: 2px;
+}
+
+.shop-desc {
+  color: #596266;
+}
+
+#close {
+  color: black;
+}
+
+#close-button {
+  margin-left: 20px;
+  background: none;
+}
+
+
+
+
