@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+#price {
+  margin-bottom: none !important;
+}
+
 .columns #card-column{
   border-width: .25px;
   padding: 5px;
@@ -22,7 +26,17 @@
 
 #card-column:hover .dropdown{
   visibility: visible;
-  
+}
+
+#card-column:hover .desc{
+  visibility: visible;
+}
+
+.desc {
+  font-size: 7pt;
+  text-align: center;
+  visibility: hidden;
+  margin-bottom: 2px;
 }
 
 

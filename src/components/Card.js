@@ -31,6 +31,11 @@ const Sizes = ({ sizes }) => {
 
 const Card = ({product}) => {
   const price = (product.price).toFixed(2);
+
+  var desc = product.description;
+  if (desc == "")
+    desc = "no description";
+
   //<img src={pic_url + product.id + ".jpg"}/>
   //<img src={process.env.PUBLIC_URL + "/data/product-imgs/100_1.jpg"}/>
   
@@ -44,6 +49,9 @@ const Card = ({product}) => {
       <Title id="price" size={4}>
         $ { price }
       </Title>
+      <h3 class="desc">
+        { desc }
+      </h3>
       <Sizes sizes={ product_sizes }/>
     </Column>
   );
