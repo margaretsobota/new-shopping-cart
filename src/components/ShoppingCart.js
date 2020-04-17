@@ -3,27 +3,28 @@ import "rbx/index.css";
 import { Column, Container, Title, Modal, Icon, Section, Button } from "rbx";
 import "../style/card.css";
 import "../style/shopping-cart.css";
-import Sidebar from "react-sidebar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const ShoppingItem = ( {title, desc, quan, size, sku} ) => {
+const ShoppingItem = ( { item } ) => {
+  const price = (item.price).toFixed(2);
+
   return (
     <Section>
       <Column.Group>
         <Column size="one-fifth">
-          <img src={process.env.PUBLIC_URL + "/data/product-imgs/" + sku + ".jpg"}/>
+          <img src={process.env.PUBLIC_URL + "/data/product-imgs/" + item.sku + ".jpg"}/>
         </Column>
         <Column size="one-third">
           <Title as="h4" id="shopping-title">
-            {title}
+            {item.title}
           </Title>
           <div class="shop-desc">
             <p>
-              { size } | { desc }
+              { item.size } | { item.desc }
             </p>
             <p>
-              Quantity: { quan }
+              Quantity: { item.quantity }
             </p>
           </div>
         </Column>
@@ -33,7 +34,7 @@ const ShoppingItem = ( {title, desc, quan, size, sku} ) => {
                 <FontAwesomeIcon icon={faTimes} />
             </Icon>
           </Button>
-          <p class="shop-price"> $ 11.45 </p>
+          <p class="shop-price"> $ {price} </p>
         </Column>
       </Column.Group>
       
@@ -43,10 +44,12 @@ const ShoppingItem = ( {title, desc, quan, size, sku} ) => {
  
 
 
-const OpenModal = () => {
+const OpenModal = ( { state } ) => {
   const closeShopping = () => {
     document.getElementById("openModal").style.display="None";
   }
+  
+  const items = state.selected;
   
   return (
     <Column id="modal-container">
@@ -63,21 +66,7 @@ const OpenModal = () => {
             </Modal.Card.Head>
             <Modal.Card.Body>
               <Modal.Content>
-                <ShoppingItem title="Cat Tee Black T-Shirt" 
-                  desc="Cool shirt with stuff"
-                  quan="4"
-                  size="L"
-                  sku="12064273040195392"/>
-                <ShoppingItem title="Dark Thug Blue-Navy T-Shirt" 
-                  desc="Cool shirt with stuff"
-                  quan="5"
-                  size="S"
-                  sku="12064273040195392"/>
-                <ShoppingItem title="Sphynx Tie Dye Wine T-Shirt" 
-                  desc="Cool shirt with stuff"
-                  quan="1"
-                  size="M"
-                  sku="12064273040195392"/>
+                {items.map(item => <ShoppingItem item={item}> </ShoppingItem>)}
               </Modal.Content>
             </Modal.Card.Body>
         </Modal.Card>
@@ -87,11 +76,11 @@ const OpenModal = () => {
   );
 };
 
-const ShoppingCart = ({ items }) => {
+const ShoppingCart = ({ state }) => {
   
   return (
     <div id="openModal" style={{ display: "None" }}>
-      <OpenModal> </OpenModal>
+      <OpenModal state={ state }> </OpenModal>
     </div>
    
   );

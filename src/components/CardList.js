@@ -3,12 +3,12 @@ import "rbx/index.css";
 import { Column, Container } from "rbx";
 import Card from "./Card"
 
-const CardList = ( { products } ) => {
+const CardList = ( { products, state } ) => {
 
   return (
     <Column.Group multiline={true} centered={true}>
       { products.map(product => 
-          <Card key={ product.id } product= { product } />) }
+          <Card key={ product.sku } product= { product } state={ state } />) }
     </Column.Group>
   );
 };

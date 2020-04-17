@@ -7,6 +7,7 @@ import Sidebar from "react-sidebar";
 
 const App = () => {
   const [data, setData] = useState({});
+  const [selected, setSelected] = useState([]);
   const products = Object.values(data);
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,14 +21,10 @@ const App = () => {
   return (
     
     <div>
-        <Container>
-          <CardList products = { products }/>
-        </Container>
-      
-        
-        <ShoppingCart />
-        
-    
+      <Container>
+        <CardList products = { products } state = { { selected, setSelected} }/>
+      </Container>
+      <ShoppingCart state = { { selected, setSelected } }/>
     </div>
     
   );

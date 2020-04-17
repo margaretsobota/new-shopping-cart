@@ -10,19 +10,37 @@ import Sizes from "./Sizes";
 
 const product_sizes = ["S", "M", "L", "XL"];
 
-const Card = ({ product }) => {
+const Card = ({ product, state }) => {
   const price = (product.price).toFixed(2);
 
   var desc = product.description;
   if (desc == "")
     desc = "no description";
 
+  
+  
+  const addItem = () => {
+    const newItem = {
+      "sku": product.sku,
+      "title": product.title,
+      "price": product.price,
+      "desc": product.description,
+      "quantity": 1,
+      "size": "S"
+    }
+    
+    var oldSelected = state.selected;
+    var newArr = [newItem];
+    var newSelected = oldSelected.concat(newArr);
+    return newSelected;
+  };
+
   const openShopping = () => {
     document.getElementById("openModal").style.display="block";
-    //state.setOpen(true);
+    state.setSelected(addItem);
     
-    //this.refs["openModal"].style.display="block";
-  }
+  };
+  
   
   return (
     <Column id="card-column" size="one-fifth">
