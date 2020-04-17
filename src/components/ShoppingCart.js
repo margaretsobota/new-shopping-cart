@@ -69,6 +69,11 @@ const OpenModal = ( { state } ) => {
                 {items.map(item => <ShoppingItem item={item}> </ShoppingItem>)}
               </Modal.Content>
             </Modal.Card.Body>
+            <Modal.Card.Foot>
+              <Modal.Card.Title> 
+                Total: $100
+              </Modal.Card.Title> 
+            </Modal.Card.Foot>
         </Modal.Card>
       </Modal.Background>
     </Column>
