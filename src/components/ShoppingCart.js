@@ -50,6 +50,22 @@ const OpenModal = ( { state } ) => {
   }
   
   const items = state.selected;
+
+  const getTotal = () => {
+    var total = 0.00;
+    var item;
+    for (item of state.selected)
+    {
+      total = total + item.price;
+    }
+    return total.toFixed(2);
+  };
+
+  var total = getTotal();
+
+  useEffect(() => {
+      total = getTotal();
+   }, [state.selected])
   
   return (
     <Column id="modal-container">
@@ -71,7 +87,7 @@ const OpenModal = ( { state } ) => {
             </Modal.Card.Body>
             <Modal.Card.Foot>
               <Modal.Card.Title> 
-                Total: $100
+                Total: ${total}
               </Modal.Card.Title> 
             </Modal.Card.Foot>
         </Modal.Card>

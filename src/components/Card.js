@@ -20,6 +20,7 @@ const Card = ({ product, state }) => {
   
   
   const addItem = () => {
+
     const newItem = {
       "sku": product.sku,
       "title": product.title,
@@ -28,8 +29,19 @@ const Card = ({ product, state }) => {
       "quantity": 1,
       "size": "S"
     }
-    
+
     var oldSelected = state.selected;
+
+    // function isEqual(item) {
+    //   return item.sku === newItem.sku;
+    // }
+    // const found = oldSelected.find(isEqual);
+    // if (found != undefined)
+    //   {
+    //     found.quantity++;
+    //     return oldSelected;
+    //   }
+
     var newArr = [newItem];
     var newSelected = oldSelected.concat(newArr);
     return newSelected;
