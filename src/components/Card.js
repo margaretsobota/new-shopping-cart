@@ -32,24 +32,25 @@ const Card = ({ product, state }) => {
 
     var oldSelected = state.selected;
 
-    // function isEqual(item) {
-    //   return item.sku === newItem.sku;
-    // }
-    // const found = oldSelected.find(isEqual);
-    // if (found != undefined)
-    //   {
-    //     found.quantity++;
-    //     return oldSelected;
-    //   }
+    for(var i =0; i < oldSelected.length; i++)
+    {
+      if (oldSelected[i].sku === newItem.sku)
+      {     
+        oldSelected[i].quantity = oldSelected[i].quantity + 1;
+        state.setSelected(oldSelected);
+        return;
+      }
+    }
 
     var newArr = [newItem];
     var newSelected = oldSelected.concat(newArr);
-    return newSelected;
+    state.setSelected(newSelected);
+
   };
 
   const openShopping = () => {
     document.getElementById("openModal").style.display="block";
-    state.setSelected(addItem);
+    addItem();
     
   };
   

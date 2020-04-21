@@ -6,8 +6,13 @@ import "../style/shopping-cart.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const ShoppingItem = ( { item } ) => {
+const ShoppingItem = ( { item, state } ) => {
   const price = (item.price).toFixed(2);
+  var quantity = item.quantity;
+
+   useEffect(() => {
+      quantity = item.quantity;
+   }, [state.selected])
 
   return (
     <Section>
@@ -24,7 +29,7 @@ const ShoppingItem = ( { item } ) => {
               { item.size } | { item.desc }
             </p>
             <p>
-              Quantity: { item.quantity }
+              Quantity: { quantity }
             </p>
           </div>
         </Column>
@@ -49,7 +54,7 @@ const OpenModal = ( { state } ) => {
     document.getElementById("openModal").style.display="None";
   }
   
-  const items = state.selected;
+  var items = state.selected;
 
   const getTotal = () => {
     var total = 0.00;
@@ -82,7 +87,8 @@ const OpenModal = ( { state } ) => {
             </Modal.Card.Head>
             <Modal.Card.Body>
               <Modal.Content>
-                {items.map(item => <ShoppingItem item={item}> </ShoppingItem>)}
+                {items.map(item => <ShoppingItem item={item} state={state}>  
+                                    </ShoppingItem>)}
               </Modal.Content>
             </Modal.Card.Body>
             <Modal.Card.Foot>
