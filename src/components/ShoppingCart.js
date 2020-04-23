@@ -10,9 +10,32 @@ const ShoppingItem = ( { item, state } ) => {
   const price = (item.price).toFixed(2);
   var quantity = item.quantity;
 
-   useEffect(() => {
-      quantity = item.quantity;
-   }, [state.selected])
+  const deleteItem = () => {
+    var i = 0;
+    for (var thing of state.selected)
+    {
+      console.log(thing);
+      if (thing.sku == item.sku)
+      {
+        var newArr = [...state.selected];
+        if(item.quantity == 1)
+        {
+          newArr = newArr.filter(el =>  el.sku != item.sku);
+        }
+        else{
+          //newArr = state.selected;
+          newArr[i].quantity--;
+          
+        }
+        state.setSelected(newArr);
+        
+      }
+      i++;
+        
+    }
+  };
+
+   
 
   return (
     <Section>
@@ -34,8 +57,10 @@ const ShoppingItem = ( { item, state } ) => {
           </div>
         </Column>
         <Column offset={4}>
-          <Button id= "close-button" color="dark" rounded="true" align="right">
-            <Icon id="close" size="small">
+          <Button id= "delete-button" color="dark" rounded="true" align="right"
+                  onClick= { () => deleteItem()}
+          >
+            <Icon id="delete" size="small">
                 <FontAwesomeIcon icon={faTimes} />
             </Icon>
           </Button>
@@ -69,7 +94,8 @@ const OpenModal = ( { state } ) => {
   var total = getTotal();
 
   useEffect(() => {
-      total = getTotal();
+    total = getTotal();
+    
    }, [state.selected])
   
   return (

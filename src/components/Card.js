@@ -36,13 +36,14 @@ const Card = ({ product, state }) => {
     {
       if (oldSelected[i].sku === newItem.sku)
       {     
-        oldSelected[i].quantity = oldSelected[i].quantity + 1;
-        state.setSelected(oldSelected);
+        var newArr = [...oldSelected];
+        newArr[i].quantity = oldSelected[i].quantity + 1;
+        state.setSelected(newArr);
         return;
       }
     }
 
-    var newArr = [newItem];
+    newArr = [newItem];
     var newSelected = oldSelected.concat(newArr);
     state.setSelected(newSelected);
 
