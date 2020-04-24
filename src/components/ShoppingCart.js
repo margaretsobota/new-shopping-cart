@@ -23,7 +23,6 @@ const ShoppingItem = ( { item, state } ) => {
           newArr = newArr.filter(el =>  el.sku != item.sku);
         }
         else{
-          //newArr = state.selected;
           newArr[i].quantity--;
           
         }
@@ -86,7 +85,7 @@ const OpenModal = ( { state } ) => {
     var item;
     for (item of state.selected)
     {
-      total = total + item.price;
+      total = total + (item.price * item.quantity);
     }
     return total.toFixed(2);
   };
