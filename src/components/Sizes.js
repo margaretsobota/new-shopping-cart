@@ -1,11 +1,11 @@
-import React from 'react';
+  import React from 'react';
 import "rbx/index.css";
 import { Dropdown, Button, Icon } from "rbx";
 import "../style/card.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
-const Sizes = ({ sizes }) => {
+const Sizes = ({ sizes, state }) => {
   return (
     <Dropdown>
       <Dropdown.Trigger>
@@ -19,7 +19,9 @@ const Sizes = ({ sizes }) => {
       <Dropdown.Menu>
         <Dropdown.Content>
         {sizes.map(size => 
-           <Dropdown.Item> {size} </Dropdown.Item>)}
+           <Dropdown.Item
+              onClick={() => state.setSizeState(size)}
+           > {size} </Dropdown.Item>)}
         </Dropdown.Content>
       </Dropdown.Menu>
     </Dropdown>

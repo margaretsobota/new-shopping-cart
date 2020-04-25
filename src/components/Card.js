@@ -12,6 +12,7 @@ const product_sizes = ["S", "M", "L", "XL"];
 
 const Card = ({ product, state }) => {
   const price = (product.price).toFixed(2);
+  const [sizeState, setSizeState] = useState("S");
 
   var desc = product.description;
   if (desc == "")
@@ -27,7 +28,7 @@ const Card = ({ product, state }) => {
       "price": product.price,
       "desc": product.description,
       "quantity": 1,
-      "size": "S"
+      "size": sizeState
     }
 
     var oldSelected = state.selected;
@@ -67,7 +68,7 @@ const Card = ({ product, state }) => {
       </Title>
       
       <Column.Group>
-        <Sizes sizes={ product_sizes }/>
+        <Sizes sizes={ product_sizes } state={ { sizeState, setSizeState } }/>
         
         <span class="desc">
           <Icon size="small">
