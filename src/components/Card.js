@@ -10,7 +10,7 @@ import Sizes from "./Sizes";
 
 const product_sizes = ["S", "M", "L", "XL"];
 
-const Card = ({ product, state }) => {
+const Card = ({ product, state, inventoryState }) => {
   const price = (product.price).toFixed(2);
   const [sizeState, setSizeState] = useState("S");
 
@@ -18,8 +18,17 @@ const Card = ({ product, state }) => {
   if (desc == "")
     desc = "no description";
 
-  
-  
+  useEffect(() => {
+    const updateInventory = () => {
+      var newInven = [...inventoryState.inventory];
+      
+    }
+    
+  }, [state]);
+
+  //console.log(Object.keys(inventoryState.inventory));
+
+
   const addItem = () => {
 
     const newItem = {

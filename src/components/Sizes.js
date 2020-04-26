@@ -6,6 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 const Sizes = ({ sizes, state }) => {
+  const handleClick = (size) => {
+    state.setSizeState(size);
+  };
+
   return (
     <Dropdown>
       <Dropdown.Trigger>
@@ -20,7 +24,8 @@ const Sizes = ({ sizes, state }) => {
         <Dropdown.Content>
         {sizes.map(size => 
            <Dropdown.Item
-              onClick={() => state.setSizeState(size)}
+              //onClick={() => state.setSizeState(size)}
+              onClick={() => handleClick(size)}
            > {size} </Dropdown.Item>)}
         </Dropdown.Content>
       </Dropdown.Menu>
