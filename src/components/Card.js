@@ -4,27 +4,41 @@ import { Column, Container, Title, Button, Icon } from "rbx";
 import "../style/card.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-//fa-info-circle
 
 import Sizes from "./Sizes";
-
-const product_sizes = ["S", "M", "L", "XL"];
 
 const Card = ({ product, state, inventoryState }) => {
   const price = (product.price).toFixed(2);
   const [sizeState, setSizeState] = useState("S");
+  const inventory = inventoryState.inventory;
+  const inven_obj = inventory[product.sku];
+
+  var sizes = [];
 
   var desc = product.description;
   if (desc == "")
     desc = "no description";
 
-  useEffect(() => {
-    const updateInventory = () => {
-      var newInven = [...inventoryState.inventory];
+  
+  for (var size in inven_obj)
+  {
+    if(inven_obj[size] > 0)
+      sizes.push(size);
       
-    }
+  }
+
+  if (sizes.length == 0)
+    sizes.push("Out of stock");
+
+
+
+  // useEffect(() => {
+  //   const updateInventory = () => {
+  //     var newInven = [...inventoryState.inventory];
+      
+  //   }
     
-  }, [state]);
+  // }, [state]);
 
   //console.log(Object.keys(inventoryState.inventory));
 
@@ -77,7 +91,7 @@ const Card = ({ product, state, inventoryState }) => {
       </Title>
       
       <Column.Group>
-        <Sizes sizes={ product_sizes } state={ { sizeState, setSizeState } }/>
+        <Sizes sizes={ sizes } state={ { sizeState, setSizeState } }/>
         
         <span class="desc">
           <Icon size="small">

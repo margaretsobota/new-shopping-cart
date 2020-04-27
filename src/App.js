@@ -39,12 +39,22 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const handleData = snap => {
-      if (snap.val()) setInventory(snap.val());
-    }
-    db.on('value', handleData, error => alert(error));
-    return () => { db.off('value', handleData); };
+    const fetchInventory = async () => {
+      const response = await fetch('./data/inventory.json');
+      const json = await response.json();
+      setInventory(json);
+    };
+    fetchInventory();
   }, []);
+
+
+  // useEffect(() => {
+  //   const handleData = snap => {
+  //     if (snap.val()) setInventory(snap.val());
+  //   }
+  //   db.on('value', handleData, error => alert(error));
+  //   return () => { db.off('value', handleData); };
+  // }, []);
 
 
   return (
