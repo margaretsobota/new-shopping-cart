@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import "rbx/index.css";
-import { Column, Container, Title, Modal, Icon, Section, Button } from "rbx";
+import { Column, Title, Modal, Icon, Section, Button } from "rbx";
 import "../style/card.css";
 import "../style/shopping-cart.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +18,7 @@ const ShoppingItem = ( { item, state, inventoryState } ) => {
 
     for (var size in inven_obj)
     {
-      if(size == item.size)
+      if(size === item.size)
         inven_cpy[item.sku][size] ++;
         
     }
@@ -31,12 +31,12 @@ const ShoppingItem = ( { item, state, inventoryState } ) => {
     for (var thing of state.selected)
     {
       console.log(thing);
-      if (thing.sku == item.sku && thing.size == item.size)
+      if (thing.sku === item.sku && thing.size === item.size)
       {
         var newArr = [...state.selected];
-        if(item.quantity == 1)
+        if(item.quantity === 1)
         {
-          newArr = newArr.filter(el => ((el.sku == item.sku && el.size != item.size ) || el.sku !=                  item.sku));
+          newArr = newArr.filter(el => ((el.sku === item.sku && el.size !== item.size ) || el.sku !==                  item.sku));
         }
         else {
           newArr[i].quantity--;

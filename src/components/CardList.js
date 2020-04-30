@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import "rbx/index.css";
-import { Column, Container } from "rbx";
+import { Column } from "rbx";
 import Card from "./Card"
 
 const CardList = ( { products, state, inventoryState } ) => {

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import "rbx/index.css";
-import { Column, Container, Title, Button, Icon } from "rbx";
+import { Column, Title, Button, Icon } from "rbx";
 import "../style/card.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ const Card = ({ product, state, inventoryState }) => {
   var sizes = [];
 
   var desc = product.description;
-  if (desc == "")
+  if (desc === "")
     desc = "no description";
 
   
@@ -37,7 +37,7 @@ const Card = ({ product, state, inventoryState }) => {
     Object.assign(inven_cpy, inventoryState.inventory);
     for (var size in inven_obj)
     {
-      if(size == sizeState)
+      if(size === sizeState)
         inven_cpy[product.sku][size] --;
         
     }
@@ -61,7 +61,7 @@ const Card = ({ product, state, inventoryState }) => {
 
     for(var i =0; i < oldSelected.length; i++)
     {
-      if (oldSelected[i].sku === newItem.sku && oldSelected[i].size == sizeState)
+      if (oldSelected[i].sku === newItem.sku && oldSelected[i].size === sizeState)
       {     
         var newArr = [...oldSelected];
         newArr[i].quantity = oldSelected[i].quantity + 1;
@@ -79,7 +79,7 @@ const Card = ({ product, state, inventoryState }) => {
   };
 
   const openShopping = () => {
-    if( sizeState != "" && inven_obj[sizeState] > 0)
+    if( sizeState !== "" && inven_obj[sizeState] > 0)
     {
       document.getElementById("openModal").style.display="block";
       addItem();

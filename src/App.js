@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "rbx/index.css";
-import { Container, Section } from "rbx";
+import { Container } from "rbx";
 import CardList from "./components/CardList";
 import ShoppingCart from "./components/ShoppingCart";
-import Sidebar from "react-sidebar";
 
 import firebase from 'firebase/app';
 import 'firebase/database';
@@ -21,7 +20,7 @@ var firebaseConfig = {
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.database().ref();
+  //const db = firebase.database().ref();
 
 const App = () => {
   const [data, setData] = useState({});
