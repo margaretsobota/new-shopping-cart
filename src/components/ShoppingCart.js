@@ -6,23 +6,39 @@ import "../style/shopping-cart.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const ShoppingItem = ( { item, state } ) => {
+const ShoppingItem = ( { item, state, inventoryState } ) => {
   const price = (item.price).toFixed(2);
   var quantity = item.quantity;
+  const inven_obj = inventoryState.inventory[item.sku];
+
+  const updateInventory = () => {
+
+    const inven_cpy = {} 
+    Object.assign(inven_cpy, inventoryState.inventory);
+
+    for (var size in inven_obj)
+    {
+      if(size == item.size)
+        inven_cpy[item.sku][size] ++;
+        
+    }
+    inventoryState.setInventory(inven_cpy);
+
+  };
 
   const deleteItem = () => {
     var i = 0;
     for (var thing of state.selected)
     {
       console.log(thing);
-      if (thing.sku == item.sku)
+      if (thing.sku == item.sku && thing.size == item.size)
       {
         var newArr = [...state.selected];
         if(item.quantity == 1)
         {
-          newArr = newArr.filter(el =>  el.sku != item.sku);
+          newArr = newArr.filter(el => ((el.sku == item.sku && el.size != item.size ) || el.sku !=                  item.sku));
         }
-        else{
+        else {
           newArr[i].quantity--;
           
         }
@@ -32,6 +48,7 @@ const ShoppingItem = ( { item, state } ) => {
       i++;
         
     }
+    updateInventory();
   };
 
    
@@ -73,7 +90,7 @@ const ShoppingItem = ( { item, state } ) => {
  
 
 
-const OpenModal = ( { state } ) => {
+const OpenModal = ( { state, inventoryState } ) => {
   const closeShopping = () => {
     document.getElementById("openModal").style.display="None";
   }
@@ -112,7 +129,9 @@ const OpenModal = ( { state } ) => {
             </Modal.Card.Head>
             <Modal.Card.Body>
               <Modal.Content>
-                {items.map(item => <ShoppingItem item={item} state={state}>  
+                {items.map(item => <ShoppingItem item={item} state={state} 
+                                      inventoryState={ inventoryState }
+                                    >  
                                     </ShoppingItem>)}
               </Modal.Content>
             </Modal.Card.Body>
@@ -128,11 +147,11 @@ const OpenModal = ( { state } ) => {
   );
 };
 
-const ShoppingCart = ({ state }) => {
+const ShoppingCart = ({ state, inventoryState }) => {
   
   return (
     <div id="openModal" style={{ display: "None" }}>
-      <OpenModal state={ state }> </OpenModal>
+      <OpenModal state={ state } inventoryState= { inventoryState }> </OpenModal>
     </div>
    
   );

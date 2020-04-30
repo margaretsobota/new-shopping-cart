@@ -48,15 +48,6 @@ const App = () => {
   }, []);
 
 
-  // useEffect(() => {
-  //   const handleData = snap => {
-  //     if (snap.val()) setInventory(snap.val());
-  //   }
-  //   db.on('value', handleData, error => alert(error));
-  //   return () => { db.off('value', handleData); };
-  // }, []);
-
-
   return (
     
     <div>
@@ -64,7 +55,7 @@ const App = () => {
         <CardList products = { products } state = { { selected, setSelected} } 
         inventoryState= { { inventory, setInventory } }/>
       </Container>
-      <ShoppingCart state = { { selected, setSelected } }/>
+      <ShoppingCart state = { { selected, setSelected } } inventoryState = { { inventory, setInventory } }      />
     </div>
     
   );

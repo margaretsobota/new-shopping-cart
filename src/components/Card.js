@@ -9,7 +9,7 @@ import Sizes from "./Sizes";
 
 const Card = ({ product, state, inventoryState }) => {
   const price = (product.price).toFixed(2);
-  const [sizeState, setSizeState] = useState("S");
+  const [sizeState, setSizeState] = useState("");
   const inventory = inventoryState.inventory;
   const inven_obj = inventory[product.sku];
 
@@ -24,23 +24,26 @@ const Card = ({ product, state, inventoryState }) => {
   {
     if(inven_obj[size] > 0)
       sizes.push(size);
+    else
+      sizes.push(size + ": Out of stock");
       
   }
 
-  if (sizes.length == 0)
-    sizes.push("Out of stock");
+  console.log(sizes);
 
+  const updateInventory = () => {
 
+    const inven_cpy = {} 
+    Object.assign(inven_cpy, inventoryState.inventory);
+    for (var size in inven_obj)
+    {
+      if(size == sizeState)
+        inven_cpy[product.sku][size] --;
+        
+    }
+    inventoryState.setInventory(inven_cpy);
 
-  // useEffect(() => {
-  //   const updateInventory = () => {
-  //     var newInven = [...inventoryState.inventory];
-      
-  //   }
-    
-  // }, [state]);
-
-  //console.log(Object.keys(inventoryState.inventory));
+  };
 
 
   const addItem = () => {
@@ -58,7 +61,7 @@ const Card = ({ product, state, inventoryState }) => {
 
     for(var i =0; i < oldSelected.length; i++)
     {
-      if (oldSelected[i].sku === newItem.sku)
+      if (oldSelected[i].sku === newItem.sku && oldSelected[i].size == sizeState)
       {     
         var newArr = [...oldSelected];
         newArr[i].quantity = oldSelected[i].quantity + 1;
@@ -70,12 +73,20 @@ const Card = ({ product, state, inventoryState }) => {
     newArr = [newItem];
     var newSelected = oldSelected.concat(newArr);
     state.setSelected(newSelected);
+    
+    
 
   };
 
   const openShopping = () => {
-    document.getElementById("openModal").style.display="block";
-    addItem();
+    if( sizeState != "" && inven_obj[sizeState] > 0)
+    {
+      document.getElementById("openModal").style.display="block";
+      addItem();
+      updateInventory();
+    }
+    else 
+      alert("Please select valid size.");
     
   };
   
