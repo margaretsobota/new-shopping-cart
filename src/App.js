@@ -20,7 +20,7 @@ var firebaseConfig = {
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  //const db = firebase.database().ref();
+  const db = firebase.database().ref();
 
 const App = () => {
   const [data, setData] = useState({});
@@ -38,13 +38,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const fetchInventory = async () => {
-      const response = await fetch('./data/inventory.json');
-      const json = await response.json();
-      setInventory(json);
-    };
-    fetchInventory();
+    const handleData = snap => {
+      if (snap.val()) setInventory(snap.val());
+    }
+    db.on('value', handleData, error => alert(error));
+    return () => { db.off('value', handleData); };
   }, []);
+
 
 
   return (

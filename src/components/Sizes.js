@@ -6,6 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 const Sizes = ({ sizes, state }) => {
+  var newSizes = [];
+  newSizes[0] = sizes[2];
+  newSizes[1] = sizes[1];
+  newSizes[2] = sizes[0];
+  newSizes[3] = sizes[3];
+  sizes = newSizes;
+
+
   const handleClick = (size) => {
     if (!size.includes("Out of stock"))
       state.setSizeState(size);
