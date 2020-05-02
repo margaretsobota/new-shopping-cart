@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import "rbx/index.css";
-import { Container } from "rbx";
+import { Container, Message, Button } from "rbx";
 import CardList from "./components/CardList";
 import ShoppingCart from "./components/ShoppingCart";
 
 import firebase from 'firebase/app';
 import 'firebase/database';
+
+import 'firebase/auth';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 var firebaseConfig = {
     apiKey: "AIzaSyALArMC5OTgWFQu9tQJAR8xyizDmL4KoLc",
@@ -22,10 +25,45 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database().ref();
 
+const uiConfig = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+  ],
+  callbacks: {
+    signInSuccessWithAuthResult: () => false
+  }
+};
+
+const SignIn = () => (
+  <StyledFirebaseAuth
+    uiConfig={uiConfig}
+    firebaseAuth={firebase.auth()}
+  />
+);
+
+const Welcome = ({ user }) => (
+  <Message color="info">
+    <Message.Header>
+      Welcome, {user.displayName}
+      <Button primary onClick={() => firebase.auth().signOut()}>
+        Log out
+      </Button>
+    </Message.Header>
+  </Message>
+);
+
+const Banner = ({ user }) => (
+  <React.Fragment>
+    { user ? <Welcome user={ user } /> : <SignIn /> }
+  </React.Fragment>
+);
+
 const App = () => {
   const [data, setData] = useState({});
   const [selected, setSelected] = useState([]);
   const [inventory, setInventory] = useState({});
+  const [user, setUser] = useState(null);
   const products = Object.values(data);
 
   useEffect(() => {
@@ -38,6 +76,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    firebase.auth().onAuthStateChanged(setUser);
+  }, []);
+
+  useEffect(() => {
     const handleData = snap => {
       if (snap.val()) setInventory(snap.val());
     }
@@ -45,12 +87,11 @@ const App = () => {
     return () => { db.off('value', handleData); };
   }, []);
 
-
-
   return (
     
     <div>
       <Container>
+        <Banner user={ user } />
         <CardList products = { products } state = { { selected, setSelected} } 
         inventoryState= { { inventory, setInventory } }/>
       </Container>
