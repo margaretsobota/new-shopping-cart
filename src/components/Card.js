@@ -29,8 +29,6 @@ const Card = ({ product, state, inventoryState }) => {
       
   }
 
-  console.log(sizes);
-
   const updateInventory = () => {
 
     const inven_cpy = {} 

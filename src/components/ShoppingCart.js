@@ -10,6 +10,7 @@ const ShoppingItem = ( { item, state, inventoryState } ) => {
   const price = (item.price).toFixed(2);
   var quantity = item.quantity;
   const inven_obj = inventoryState.inventory[item.sku];
+  
 
   const updateInventory = () => {
 

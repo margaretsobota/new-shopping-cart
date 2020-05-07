@@ -75,18 +75,50 @@ const App = () => {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(setUser);
-  }, []);
 
   useEffect(() => {
     const handleData = snap => {
-      if (snap.val()) setInventory(snap.val());
+      if (snap.val()) {
+        setInventory(snap.val().inventory);
+      }
     }
     db.on('value', handleData, error => alert(error));
     return () => { db.off('value', handleData); };
   }, []);
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(setUser);
+  }, []);
+
+  useEffect(() => {
+    if(user != null){
+      firebase.database().ref("carts/" + user.uid).once("value").then(snap=> {
+        if(snap.val()){
+          setSelected(snap.val().concat(selected));
+          firebase.database().ref("carts/" + user.uid).set(selected);
+        }else{
+          //firebase.database().ref("carts/" + user.uid).set(selected);
+        }
+      })
+    }else{
+      setSelected([]);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if(user != null){
+      firebase.database().ref("carts/" + user.uid).set(selected);
+    }
+
+  }, [selected]);
+
+  useEffect(() => {
+    if(Object.keys(inventory).length != 0){
+      firebase.database().ref("inventory").set(inventory);
+    }
+  }, [selected]);
+
+ 
   return (
     
     <div>
